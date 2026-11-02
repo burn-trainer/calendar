@@ -217,10 +217,11 @@ function evCount(n){return n+' '+(n===1?'мероприятие':(n%10>1&&n%10<5
 const monthsSet=[...new Set(EVENTS.map(e=>{const d=parse(e.date);return d.getFullYear()*12+d.getMonth();}))].sort((a,b)=>a-b);
 let curIdx=(()=>{const tk=TODAY.getFullYear()*12+TODAY.getMonth();let i=monthsSet.indexOf(tk);return i>=0?i:0;})();
 
+function started(e){const s=parse(e.date);const m=(e.time||'').match(/(\d{1,2}):(\d{2})/);if(m)s.setHours(+m[1],+m[2]);return new Date()>=s;}
 function joinButton(e){
   const isWeb=CAT[e.cat].webinar;
   if(e.url) return `<a class="btn btn-join" href="${e.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${SVG_PLAY}Подключиться</a>`;
-  if(isWeb) return `<span class="btn btn-pending">${SVG_PLAY}${parse(e.date)<TODAY?'Запись скоро':'Ссылка скоро'}</span>`;
+  if(isWeb) return `<span class="btn btn-pending">${SVG_PLAY}${started(e)?'Запись скоро':'Ссылка скоро'}</span>`;
   return '';
 }
 
