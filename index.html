@@ -235,15 +235,15 @@ function renderHero(){
   if(!up){el.style.display='none';return;}
   const diff=Math.round((up.d-TODAY)/86400000);
   const c=CAT[up.e.cat];
-  const num=diff===0?`<div class="n" style="font-size:30px">сегодня</div>`
-    :diff===1?`<div class="n" style="font-size:30px">завтра</div>`
-    :`<div class="n">${diff}</div><div class="u">${pluralDays(diff)}</div>`;
-  const chips=[`<span class="hero-chip">${fmtRu(up.d)}</span>`];
+  const MG=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  const num=`<div class="n">${up.d.getDate()}</div><div class="u">${MG[up.d.getMonth()]}</div>`;
+  const eyebrow=diff===0?'Сегодня':diff===1?'Завтра':'Следующее';
+  const chips=[];
   if(up.e.time) chips.push(`<span class="hero-chip">${up.e.time}</span>`);
   if(up.e.loc) chips.push(`<span class="hero-chip">${up.e.loc}</span>`);
   const jb=joinButton(up.e);
   el.innerHTML=`<div class="hero-in" onclick="jumpTo('${up.e.date}')">
-    <div class="hero-top"><div class="hero-eyebrow"><span class="hero-pulse"></span>Следующее</div><div class="hero-cat">${c.glyph} ${c.short}</div></div>
+    <div class="hero-top"><div class="hero-eyebrow"><span class="hero-pulse"></span>${eyebrow}</div><div class="hero-cat">${c.glyph} ${c.short}</div></div>
     <div class="hero-body">
       <div class="hero-count">${num}</div><div class="hero-divm"></div>
       <div class="hero-info">
