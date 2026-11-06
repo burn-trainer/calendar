@@ -224,7 +224,7 @@ function joinButton(e){
   const isWeb=CAT[e.cat].webinar;
   if(e.nobtn) return '';
   if(e.btntext) return `<span class="btn btn-pending">${SVG_PLAY}${e.btntext}</span>`;
-  if(e.url) return `<a class="btn btn-join" href="${e.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${SVG_PLAY}Подключиться</a>`;
+  if(e.url) return `<a class="btn btn-join" href="${e.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${SVG_PLAY}${(isWeb&&started(e))?'Смотреть запись':'Подключиться'}</a>`;
   if(isWeb) return `<span class="btn btn-pending">${SVG_PLAY}${started(e)?'Запись скоро':'Ссылка скоро'}</span>`;
   return '';
 }
